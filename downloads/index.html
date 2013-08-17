@@ -35,6 +35,11 @@ a{
   background-image: url(http://www.singularityviewer.org/home/sg_download_windows.png);
 }
 
+#windows_chrome{
+  display: none;
+  background-image: url(http://www.singularityviewer.org/home/sg_download_windows.png);
+}
+
 #mac{
   display: none;
   background-image: url(http://www.singularityviewer.org/home/sg_download_mac.png);
@@ -66,6 +71,12 @@ Singularity 1.8.1(4863)<br/>
 12 Aug 2013 
 for Windows
   </span></a>
+  <a id="windows_chrome" 
+href="http://www.singularityviewer.org/downloads/"><span>
+Singularity 1.8.1(4863)<br/>
+12 Aug 2013 
+for Windows
+  </span></a>
   <a id="mac" 
 href="https://bitbucket.org/SingularityViewer/singularityviewer/downloads/Singularity_1_8_1_4863.dmg"><span>
 Singularity 1.8.1(4863)<br/>
@@ -90,9 +101,15 @@ Unable to detect your system. <br/> Please visit Download section.</span></a>
 
 
 <script type="text/javascript">
-p = (navigator.platform);
+var p = (navigator.platform);
+var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+
 if ((p.indexOf("Win32")!= -1) || (p.indexOf("Win64")!= -1)) {
-  document.getElementById("windows").style.display = "block";
+  if (is_chrome) {
+    document.getElementById("windows_chrome").style.display = "block";
+  } else {
+    document.getElementById("windows").style.display = "block";
+  }
   document.getElementById("unknown").style.display = "none";
 }  
 else if (p.indexOf("Linux")!= -1) {
