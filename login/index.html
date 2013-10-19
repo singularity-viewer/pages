@@ -139,13 +139,13 @@ window.onload = function()
     document.getElementById('closetoolbar').onclick = toggleToolbar;  
     document.getElementById('opentoolbar').onclick = toggleToolbar;
     
-    // Current version is newer that what user's
+    // Current version is newer that user's
     if (compareVersion(current_version, urlParams["version"]) > 0)
     {
       toolbarShown = true;
       setVisible("updateavail", true);
     }
-    // User is on Singularity Alpha older thatn minimum recommended
+    // User is on Singularity Alpha older than minimum recommended
     else if (urlParams["channel"] == "Singularity Alpha" && compareVersion(min_alpha, urlParams["version"]) > 0)
     {
       toolbarShown = true;
