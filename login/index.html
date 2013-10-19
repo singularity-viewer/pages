@@ -12,22 +12,28 @@
  * CURRENT VERSION GOES HERE
  */
 
-var current_version = "1.8.2 (4998)"; 
+var current_version = "1.8.3 (4998)";
+
+// Minimum recommended alpha version
+var min_alpha = "1.8.3 (5240)"; 
 
 /*
  * Main functionality (no need to edit anything below to udpate the version)
  */
 
 var toolbarShown = false;
-var user_version = getParameterByName("version");
-var user_grid = getParameterByName("grid");
+var urlParams;
 
-function getParameterByName(name)
-{
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+function parseUrlParams() {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
 }
 
 function pageY(elem)
@@ -79,7 +85,7 @@ function cleanVersion(v)
         .replace(/[^\d]+/g, ".") // Convert all non-digits to dots
 }
 
-function compareVersioen(a, b)
+function compareVersion(a, b)
 {
     if (a === b)
     {
@@ -125,33 +131,33 @@ function compareVersioen(a, b)
 // Main
 window.onload = function()
 {
-    document.getElementById('origpage').onload = function() {
-      resizeIframe();  
-    };
-    
-    document.getElementById('origpage').setAttribute("src", getParameterByName("original_page"));
-
-    document.getElementById('closetoolbar').onclick = function() {
-      toggleToolbar();  
-    };
+    parseUrlParams();
+    if (!urlParams["original_page"] || !urlParams["version"]) return;
+    window.onresize = resizeIframe;
+    document.getElementById('origpage').onload = resizeIframe;
+    document.getElementById('origpage').setAttribute("src", urlParams["original_page"]);
+    document.getElementById('closetoolbar').onclick = toggleToolbar;  
     document.getElementById('opentoolbar').onclick = toggleToolbar;
     
     // Current version is newer that what user's
-    if (compareVersioen(current_version, user_version) == 1)
+    if (compareVersion(current_version, urlParams["version"]) > 0)
     {
       toolbarShown = true;
       setVisible("updateavail", true);
-      setVisible("uptodate", false);
+    }
+    // User is on Singularity Alpha older thatn minimum recommended
+    else if (urlParams["channel"] == "Singularity Alpha" && compareVersion(min_alpha, urlParams["version"]) > 0)
+    {
+      toolbarShown = true;
+      setVisible("alpha_updateavail", true);
     }
     else
     {
       toolbarShown = false;
-      setVisible("updateavail", false);
       setVisible("uptodate", true);
     }
     
     updateVisibility(toolbarShown);
-    window.onresize = resizeIframe;
 }
 //]]>
   </script>
@@ -215,10 +221,16 @@ window.onload = function()
         <div id="closetoolbar"><img src="x.png"/></div>
         <div id="toolbarcontent" style="margin: 0px 4px 10px 12px;">
             <div id="uptodate" style="display: none;">Your Singularity is up to date.</div>
-            <div id="updateavail" style="display: block;">
+            <div id="updateavail" style="display: none;">
                 <img src="alert.png" style="vertical-align: bottom;" />
                 An updated version of Singularity is available. Please visit the
                 <a href="http://www.singularityviewer.org/" target="_external">Singularity main site</a>
+                to download it.
+            </div>
+            <div id="alpha_updateavail" style="display: none;">
+                <img src="alert.png" style="vertical-align: bottom;" />
+                An updated version of Singularity Alpha is available. Please visit the
+                <a href="http://alpha.singularityviewer.org/alpha/" target="_external">Singularity Alpha builds page</a>
                 to download it.
             </div>
         </div>
