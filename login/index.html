@@ -155,9 +155,9 @@ window.onload = function()
     {
       toolbarShown = true;
       if (urlParams["lang"] == "fr")
-        setVisible("zero_updatetoalpha_fr");
+        setVisible("zero_updatetoalpha_fr", true);
       else
-        setVisible("zero_updatetoalpha");
+        setVisible("zero_updatetoalpha", true);
     }
     else
     {
@@ -245,13 +245,13 @@ window.onload = function()
                 <img src="alert.png" style="vertical-align: bottom;" />
                 Thank you kindly, for testing Singularity Zero, please migrate to Singularity alpha from the 
                 <a href="http://alpha.singularityviewer.org/alpha/" target="_external">alpha builds page</a>
-                .
+                ~
             </div>
             <div id="zero_updatetoalpha_fr" style="display: none;">
                 <img src="alert.png" style="vertical-align: bottom;" />
                 Nous remercions, grandement les gens qui ont aidé en testant la zero, maintenant elle est basculée sur une alpha:
                 <a href="http://alpha.singularityviewer.org/alpha/" target="_external">alpha builds page</a>
-                .
+                ~
             </div>
         </div>
     </div>
