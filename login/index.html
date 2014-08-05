@@ -154,7 +154,10 @@ window.onload = function()
     else if (urlParams["channel"] == "Singularity Zero" && compareVersion("1.8.5 (6068)", urlParams["version"]) > 0)
     {
       toolbarShown = true;
-      setVisible("zero_updatetoalpha");
+      if (urlParams["lang"] == "fr"")
+        setVisible("zero_updatetoalpha_fr");
+      else
+        setVisible("zero_updatetoalpha");
     }
     else
     {
@@ -242,7 +245,13 @@ window.onload = function()
                 <img src="alert.png" style="vertical-align: bottom;" />
                 Thank you kindly, for testing Singularity Zero, please migrate to Singularity alpha from the 
                 <a href="http://alpha.singularityviewer.org/alpha/" target="_external">alpha builds page</a>
-                &#126;
+                .
+            </div>
+            <div id="zero_updatetoalpha_fr" style="display: none;">
+                <img src="alert.png" style="vertical-align: bottom;" />
+                Nous remercions, grandement les gens qui ont aidé en testant la zero, maintenant elle est basculée sur une alpha:
+                <a href="http://alpha.singularityviewer.org/alpha/" target="_external">alpha builds page</a>
+                .
             </div>
         </div>
     </div>
