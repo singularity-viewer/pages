@@ -15,7 +15,7 @@
 var current_version = "1.8.5 (5617)";
 
 // Minimum recommended alpha version
-var min_alpha = "1.8.5 (5846)";
+var min_alpha = "1.8.5 (6068)";
 
 /*
  * Main functionality (no need to edit anything below to udpate the version)
@@ -151,6 +151,11 @@ window.onload = function()
       toolbarShown = true;
       setVisible("alpha_updateavail", true);
     }
+    else if (urlParams["channel"] == "Singularity Zero" && compareVersion("1.8.5 (6068)", urlParams["version"]) > 0)
+    {
+      toolbarShown = true;
+      setVisible("zero_updatetoalpha");
+    }
     else
     {
       toolbarShown = false;
@@ -232,6 +237,12 @@ window.onload = function()
                 An updated version of Singularity Alpha is available. Please visit the
                 <a href="http://alpha.singularityviewer.org/alpha/" target="_external">Singularity Alpha builds page</a>
                 to download it.
+            </div>
+            <div id="zero_updatetoalpha" style="display: none;">
+                <img src="alert.png" style="vertical-align: bottom;" />
+                Thank you kindly, for testing Singularity Zero, please migrate to Singularity alpha from the 
+                <a href="http://alpha.singularityviewer.org/alpha/" target="_external">alpha builds page</a>
+                &#126;
             </div>
         </div>
     </div>
