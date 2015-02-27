@@ -142,6 +142,11 @@ window.onload = function()
     // Current version is newer that user's
     if (compareVersion(current_version, urlParams["version"]) > 0)
     {
+      if(urlParams["os"].indexOf("Mac OS X") > -1)
+      {
+        if(clearVersion(current_version) == "1.8.6.6157" && clearVersion(urlParams["version"]) == "1.8.6.6156")
+          return;
+      }
       toolbarShown = true;
       setVisible("updateavail", true);
     }
