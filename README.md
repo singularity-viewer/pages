@@ -10,7 +10,7 @@ change line
 
     var current_version = "1.8.0 (4114)";
 
-to whichever is thelatest version is available on the main site
+to whichever is the latest version is available on the main site
 <http://www.singularityviewer.org/>
 
 All of the work is done on "gh-pages" branch so that the pages can be
