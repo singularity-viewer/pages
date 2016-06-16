@@ -35,6 +35,11 @@ a{
   background-image: url(http://www.singularityviewer.org/home/sg_download_windows.png);
 }
 
+#windows64{
+  display: none;
+  background-image: url(http://www.singularityviewer.org/home/sg_download_windows.png);
+}
+
 #windows_chrome{
   display: none;
   background-image: url(http://www.singularityviewer.org/home/sg_download_windows.png);
@@ -66,9 +71,15 @@ span{
 </head>
 <body>
   <a id="windows" 
-href="https://github.com/singularity-viewer/SingularityViewer/releases/download/1.8.6.6157/Singularity_1-8-6-6157_Setup.exe"><span>
-Singularity 1.8.6(6157)<br/>
-27 Feb 2015 
+href="https://github.com/singularity-viewer/SingularityViewer/releases/download/1.8.7/Singularity_1_8_7_6860_i686_Setup.exe"><span>
+Singularity 1.8.7(6860)<br/>
+16 Jun 2016 
+for Windows
+  </span></a>
+  <a id="windows64" 
+href="https://github.com/singularity-viewer/SingularityViewer/releases/download/1.8.7/Singularity_1_8_7_6860_x86_64_Setup.exe"><span>
+Singularity 1.8.7(6860)<br/>
+16 Jun 2016 
 for Windows
   </span></a>
   <a id="windows_chrome" 
@@ -98,21 +109,23 @@ for Linux64
   <a id="unknown" href="http://www.singularityviewer.org/downloads"><span>
 Unable to detect your system. <br/> Please visit Download section.</span></a>
 
-
-
 <script type="text/javascript">
 var p = (navigator.platform);
 var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-is_chrome = 1;
-
-if ((p.indexOf("Win32")!= -1) || (p.indexOf("Win64")!= -1)) {
+//is_chrome = 1;
+if ((p.indexOf("Win32")!= -1) || (p.indexOf("Win64"))) {
   if (is_chrome) {
     document.getElementById("windows_chrome").style.display = "block";
   } else {
-    document.getElementById("windows").style.display = "block";
+    if( p.indexOf("Win64") ) {
+      document.getElementById("windows64").style.display = "block";
+    }
+    else {
+      document.getElementById("windows").style.display = "block";
+    }
   }
   document.getElementById("unknown").style.display = "none";
-}  
+} 
 else if (p.indexOf("Linux")!= -1) {
   if((p.indexOf("x86_64")!=-1) || (navigator.oscpu && navigator.oscpu.indexOf("x86_64")!=-1)) {
     document.getElementById("linux64").style.display = "block";
