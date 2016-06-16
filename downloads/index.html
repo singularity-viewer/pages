@@ -113,11 +113,11 @@ Unable to detect your system. <br/> Please visit Download section.</span></a>
 var p = (navigator.platform);
 var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 //is_chrome = 1;
-if ((p.indexOf("Win32")!= -1) || (p.indexOf("Win64"))) {
+if ((p.indexOf("Win32")!= -1) || (p.indexOf("Win64")!= -1)) {
   if (is_chrome) {
     document.getElementById("windows_chrome").style.display = "block";
   } else {
-    if( p.indexOf("Win64") ) {
+    if( p.indexOf("Win64")!= -1 ) {
       document.getElementById("windows64").style.display = "block";
     }
     else {
