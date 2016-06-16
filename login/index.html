@@ -12,6 +12,8 @@
  * CURRENT VERSION GOES HERE
  */
 
+//var windows_version = "1.8.7 (6860)" UNCOMMENT WHEN READY.
+var windows_version = "1.8.6 (6157)";
 var current_version = "1.8.6 (6157)";
 
 // Minimum recommended alpha version
@@ -139,12 +141,18 @@ window.onload = function()
     document.getElementById('closetoolbar').onclick = toggleToolbar;  
     document.getElementById('opentoolbar').onclick = toggleToolbar;
     
+    var cur_ver = current_version;
+    if( (urlParams["os"].indexOf("Win32")!= -1) || (urlParams["os"].indexOf("Win64")!= -1) )
+    {
+      cur_ver = windows_version;
+    }
+  
     // Current version is newer that user's
-    if (compareVersion(current_version, urlParams["version"]) > 0)
+    if (compareVersion(cur_ver, urlParams["version"]) > 0)
     {
       if(urlParams["os"].indexOf("Mac OS X") > -1)
       {
-        if(clearVersion(current_version) == "1.8.6.6157" && clearVersion(urlParams["version"]) == "1.8.6.6156")
+        if(clearVersion(cur_ver) == "1.8.6.6157" && clearVersion(urlParams["version"]) == "1.8.6.6156")
           return;
       }
       toolbarShown = true;
