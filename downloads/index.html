@@ -110,14 +110,15 @@ for Linux64
 Unable to detect your system. <br/> Please visit Download section.</span></a>
 
 <script type="text/javascript">
-var p = (navigator.platform);
-var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-//is_chrome = 1;
+var p = navigator.platform;
+var ua = navigator.userAgent.toLowerCase();
+var is_64 = ua.indexOf("x86_64") != -1 || ua.indexOf("x86-64") != -1 || ua.indexOf("Win64") != -1 ||
+  ua.indexOf("x64;") != -1 || ua.indexOf("amd64") != -1 || ua.indexOf("WOW64") != -1 || ua.indexOf("x64_64") != -1;
 if ((p.indexOf("Win32")!= -1) || (p.indexOf("Win64")!= -1)) {
-  if (is_chrome) {
+  if (ua.indexOf('chrome')!= -1) {
     document.getElementById("windows_chrome").style.display = "block";
   } else {
-    if( p.indexOf("Win64")!= -1 ) {
+    if (is_64) {
       document.getElementById("windows64").style.display = "block";
     }
     else {
@@ -127,7 +128,7 @@ if ((p.indexOf("Win32")!= -1) || (p.indexOf("Win64")!= -1)) {
   document.getElementById("unknown").style.display = "none";
 } 
 else if (p.indexOf("Linux")!= -1) {
-  if((p.indexOf("x86_64")!=-1) || (navigator.oscpu && navigator.oscpu.indexOf("x86_64")!=-1)) {
+  if (is_64) {
     document.getElementById("linux64").style.display = "block";
   }
   else {
