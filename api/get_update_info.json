@@ -13,16 +13,16 @@
 		}
 	},
 	"alpha":{
-		"url":"http://alpha.singularityviewer.org/alpha/",
+		"url":"http://singularityviewer.org/kb/nightly-builds",
 		"recommended":{
-			"windows":"1.8.7 (6989)",
-			"apple":"1.8.6 (6695)",
-			"linux":"1.8.7 (6987)"
+			"windows":"1.8.7 (8185)",
+			"apple":"1.8.7 (8243)",
+			"linux":"1.8.7 (8185)"
 		},
 		"minimum":{
-			"windows":"1.8.7 (6861)",
-			"apple":"1.8.6 (6695)",
-			"linux":"1.8.7 (6861)"
+			"windows":"1.8.7 (8185)",
+			"apple":"1.8.7 (8243)",
+			"linux":"1.8.7 (8185)"
 		}
 	}
 }
