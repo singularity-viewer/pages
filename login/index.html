@@ -16,7 +16,7 @@ var windows_version = "1.8.7 (6861)";
 var current_version = "1.8.6 (6157)";
 
 // Minimum recommended alpha version
-var min_alpha = "1.8.6 (6858)";
+var min_alpha = "1.8.7 (8185)";
 
 /*
  * Main functionality (no need to edit anything below to udpate the version)
@@ -163,7 +163,7 @@ window.onload = function()
       toolbarShown = true;
       setVisible("alpha_updateavail", true);
     }
-    else if (urlParams["channel"] == "Singularity Zero" && compareVersion("1.8.6 (6156)", urlParams["version"]) > 0)
+    else if (urlParams["channel"] == "Singularity Zero" && compareVersion(min_alpha, urlParams["version"]) > 0)
     {
       toolbarShown = true;
       if (urlParams["lang"] == "fr")
@@ -249,20 +249,20 @@ window.onload = function()
             </div>
             <div id="alpha_updateavail" style="display: none;">
                 <img src="alert.png" style="vertical-align: bottom;" />
-                An updated version of Singularity Alpha is available. Please visit the
-                <a href="http://alpha.singularityviewer.org/alpha/" target="_external">Singularity Alpha builds page</a>
+                An updated version of Singularity is available. Please visit the
+                <a href="http://www.singularityviewer.org/kb/nightly-builds" target="_external">Singularity Nightly builds page</a>
                 to download it.
             </div>
             <div id="zero_updatetoalpha" style="display: none;">
                 <img src="alert.png" style="vertical-align: bottom;" />
-                Thank you kindly, for testing Singularity Zero, please migrate to Singularity alpha from the 
-                <a href="http://alpha.singularityviewer.org/alpha/" target="_external">alpha builds page</a>
+                Thank you kindly, for testing Singularity Zero, please migrate to Singularity nightly from the 
+                <a href="http://www.singularityviewer.org/kb/nightly-builds" target="_external">nightly builds page</a>
                 ~
             </div>
             <div id="zero_updatetoalpha_fr" style="display: none;">
                 <img src="alert.png" style="vertical-align: bottom;" />
-                Nous remercions, grandement les gens qui ont aidé en testant la zero, maintenant elle est basculée sur une alpha:
-                <a href="http://alpha.singularityviewer.org/alpha/" target="_external">alpha builds page</a>
+                Nous remercions, grandement les gens qui ont aidé en testant la zero, maintenant elle est basculée sur une nightly:
+                <a href="http://www.singularityviewer.org/kb/nightly-builds" target="_external">nightly builds page</a>
                 ~
             </div>
         </div>
