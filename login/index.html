@@ -12,8 +12,7 @@
  * CURRENT VERSION GOES HERE
  */
 
-var windows_version = "1.8.7 (6861)";
-var current_version = "1.8.6 (6157)";
+var current_version = "1.8.9 (8338)";
 
 // Minimum recommended alpha version
 var min_alpha = "1.8.7 (8185)";
@@ -141,11 +140,7 @@ window.onload = function()
     document.getElementById('opentoolbar').onclick = toggleToolbar;
     
     var cur_ver = current_version;
-    if( (urlParams["os"].indexOf("Win32")!= -1) || (urlParams["os"].indexOf("Win64")!= -1) )
-    {
-      cur_ver = windows_version;
-    }
-  
+
     // Current version is newer that user's
     if (compareVersion(cur_ver, urlParams["version"]) > 0)
     {
