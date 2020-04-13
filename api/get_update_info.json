@@ -15,7 +15,7 @@
 	"alpha":{
 		"url":"http://www.singularityviewer.org/kb/nightly-builds",
 		"recommended":{
-			"windows":"1.8.7 (8193)",
+			"windows":"1.8.9 (8363)",
 			"apple":"1.8.7 (8482)",
 			"linux":"1.8.7 (8193)"
 		},
