@@ -7,31 +7,17 @@
 //<![CDATA[
 /*
  * Source: https://github.com/singularity-viewer/login-page
- *
- * Paramaters
- * CURRENT VERSION GOES HERE
  */
+var toolbarShown = true;
+var urlParams = {};
 
-var current_version = "1.8.9 (8338)";
-
-// Minimum recommended alpha version
-var min_alpha = "1.8.7 (8185)";
-
-/*
- * Main functionality (no need to edit anything below to udpate the version)
- */
-
-var toolbarShown = false;
-var urlParams;
-
+// Replace addition symbols with space
 function parseUrlParams() {
-    var match,
-        pl     = /\+/g,  // Regex for replacing addition symbol with a space
-        search = /([^&=]+)=?([^&]*)/g,
-        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-        query  = window.location.search.substring(1);
+    function decode(s) { return decodeURIComponent(s.replace(/\+/g, " ")); }
+    const search = /([^&=]+)=?([^&]*)/g;
+    const query  = window.location.search.substring(1);
+    let match = undefined;
 
-    urlParams = {};
     while (match = search.exec(query))
        urlParams[decode(match[1])] = decode(match[2]);
 }
@@ -43,10 +29,11 @@ function pageY(elem)
 
 function resizeIframe()
 {
-    var height = document.documentElement.clientHeight;
-    height -= pageY(document.getElementById('origpage'));
+    let height = document.documentElement.clientHeight;
+    let orig = document.getElementById('origpage');
+    height -= pageY(orig);
     height = (height < 0) ? 0 : height;
-    document.getElementById('origpage').style.height = height + 'px';
+    orig.style.height = height + 'px';
 }
 
 function setVisible(e, visible)
@@ -54,14 +41,7 @@ function setVisible(e, visible)
     var elem = document.getElementById(e);
     if (!elem) return;
     
-    if (visible)
-    {
-        elem.style.display = "block";
-    }
-    else
-    {
-        elem.style.display = "none";
-    }
+    elem.style.display = visible ? "block" : "none";
 }
 
 function updateVisibility(visible)
@@ -77,100 +57,25 @@ function toggleToolbar()
     updateVisibility(toolbarShown);
 }
 
-function cleanVersion(v)
-{
-    return v.toString()
-        .replace(/^.*?(\d)/g, "$1") // Get rid of everything before the first digit
-        .replace(/(.*\d).*/g, "$1") // Get rid of everything after the lst digit
-        .replace(/[^\d]+/g, ".") // Convert all non-digits to dots
-}
-
-function compareVersion(a, b)
-{
-    if (a === b)
-    {
-       return 0;
-    }
-
-    var a_components = cleanVersion(a).split(".");
-    var b_components = cleanVersion(b).split(".");
-
-    var len = Math.min(a_components.length, b_components.length);
-
-    // loop while the components are equal
-    for (var i = 0; i < len; i++)
-    {
-        // A bigger than B
-        if (parseInt(a_components[i]) > parseInt(b_components[i]))
-        {
-            return 1;
-        }
-
-        // B bigger than A
-        if (parseInt(a_components[i]) < parseInt(b_components[i]))
-        {
-            return -1;
-        }
-    }
-
-    // If one's a prefix of the other, the longer one is greater.
-    if (a_components.length > b_components.length)
-    {
-        return 1;
-    }
-
-    if (a_components.length < b_components.length)
-    {
-        return -1;
-    }
-
-    // Otherwise they are the same.
-    return 0;
-}
-
 // Main
 window.onload = function()
 {
     parseUrlParams();
-    if (!urlParams["original_page"] || !urlParams["version"]) return;
+    if (!urlParams["original_page"] || !urlParams["channel"]) return;
     window.onresize = resizeIframe;
-    document.getElementById('origpage').onload = resizeIframe;
-    document.getElementById('origpage').setAttribute("src", urlParams["original_page"]);
+    let orig = document.getElementById('origpage');
+    orig.onload = resizeIframe;
+    orig.setAttribute("src", urlParams["original_page"]);
     document.getElementById('closetoolbar').onclick = toggleToolbar;  
     document.getElementById('opentoolbar').onclick = toggleToolbar;
-    
-    var cur_ver = current_version;
 
-    // Current version is newer that user's
-    if (compareVersion(cur_ver, urlParams["version"]) > 0)
-    {
-      if(urlParams["os"].indexOf("Mac OS X") > -1)
-      {
-        if(clearVersion(cur_ver) == "1.8.6.6157" && clearVersion(urlParams["version"]) == "1.8.6.6156")
-          return;
-      }
-      toolbarShown = true;
-      setVisible("updateavail", true);
-    }
-    // User is on Singularity Alpha older than minimum recommended
-    else if (urlParams["channel"] == "Singularity Alpha" && compareVersion(min_alpha, urlParams["version"]) > 0)
-    {
-      toolbarShown = true;
-      setVisible("alpha_updateavail", true);
-    }
-    else if (urlParams["channel"] == "Singularity Zero" && compareVersion(min_alpha, urlParams["version"]) > 0)
-    {
-      toolbarShown = true;
-      if (urlParams["lang"] == "fr")
-        setVisible("zero_updatetoalpha_fr", true);
-      else
-        setVisible("zero_updatetoalpha", true);
-    }
-    else
-    {
-      toolbarShown = false;
-      setVisible("uptodate", true);
-    }
+    // Customize message per channel
+    const channel = urlParams["channel"];
+    setVisible(
+        channel == "Singularity Alpha" ? "alpha_updateavail" :
+        channel == "Singularity Zero" ? urlParams["lang"] == "fr" ? "zero_updatetoalpha_fr" : "zero_updatetoalpha" :
+        "updateavail",
+      true);
     
     updateVisibility(toolbarShown);
 }
@@ -235,7 +140,6 @@ window.onload = function()
     <div id="singtoolbar">
         <div id="closetoolbar"><img src="x.png"/></div>
         <div id="toolbarcontent" style="margin: 0px 4px 10px 12px;">
-            <div id="uptodate" style="display: none;">Your Singularity is up to date.</div>
             <div id="updateavail" style="display: none;">
                 <img src="alert.png" style="vertical-align: bottom;" />
                 An updated version of Singularity is available. Please visit the
